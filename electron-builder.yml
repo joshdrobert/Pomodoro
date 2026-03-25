@@ -1,0 +1,9 @@
+appId: com.pomodoro.buddy
+productName: Pomodoro Buddy
+directories:
+  output: dist
+mac:
+  category: public.app-category.productivity
+  target:
+    - dmg
+  icon: icon.png

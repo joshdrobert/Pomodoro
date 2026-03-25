@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Pomodoro Buddy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="buddy-container" class="draggable">
+        <div id="buddy" class="idle">
+            <div class="ears"></div>
+            <div class="face">
+                <div class="eyes">
+                    <div class="eye left"></div>
+                    <div class="eye right"></div>
+                </div>
+                <div class="blush"></div>
+                <div class="mouth"></div>
+            </div>
+            <div class="body"></div>
+            <div class="timer-display" id="timer">25:00</div>
+        </div>
+        
+        <div class="controls">
+            <button id="start-btn">Start</button>
+            <button id="reset-btn">Reset</button>
+            <div class="settings">
+                <input type="number" id="work-time" value="25" min="1" max="60">
+                <input type="number" id="break-time" value="5" min="1" max="60">
+            </div>
+        </div>
+    </div>
+    <script src="renderer.js"></script>
+</body>
+</html>
