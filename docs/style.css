@@ -238,7 +238,7 @@ body {
     color: var(--accent-soft);
 }
 
-/* ===== Character Styles (copied from app) ===== */
+/* ===== Character Styles (improved designs) ===== */
 #buddy {
     position: relative;
     width: 120px;
@@ -251,11 +251,17 @@ body {
     transition: all 0.4s ease;
 }
 
-/* Fruit mode */
+/* ===== TOMATO ===== */
 .buddy-fruit {
-    background: #ff6b6b !important;
-    border: 4px solid #e74c3c;
-    border-radius: 50% !important;
+    background: radial-gradient(circle at 35% 30%, #ff8e8e 0%, #ff6b6b 40%, #e74c3c 80%, #c0392b 100%) !important;
+    border: 4px solid #c0392b;
+    border-radius: 48% 48% 46% 46% / 42% 42% 54% 54% !important;
+    width: 126px;
+    height: 112px;
+    box-shadow:
+        0 10px 30px rgba(231,76,60,0.3),
+        inset 0 -8px 16px rgba(0,0,0,0.1),
+        inset 0 4px 10px rgba(255,255,255,0.15);
 }
 
 .buddy-fruit .fruit-parts { display: block; }
@@ -266,31 +272,151 @@ body {
     text-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
-/* Cat mode */
+/* Tomato highlight */
+.tomato-highlight {
+    position: absolute;
+    top: 12px;
+    left: 18px;
+    width: 22px;
+    height: 16px;
+    background: rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+    transform: rotate(-30deg);
+    z-index: 1;
+    filter: blur(2px);
+}
+
+/* Tomato calyx */
+.calyx {
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 18px;
+    z-index: 4;
+}
+
+.sepal {
+    position: absolute;
+    width: 12px;
+    height: 16px;
+    background: linear-gradient(180deg, #27ae60 0%, #2ecc71 100%);
+    border-radius: 2px 2px 50% 50%;
+    bottom: 0;
+    left: 50%;
+    transform-origin: bottom center;
+}
+
+.sepal:nth-child(1) { transform: translateX(-50%) rotate(0deg); }
+.sepal:nth-child(2) { transform: translateX(-50%) rotate(72deg); }
+.sepal:nth-child(3) { transform: translateX(-50%) rotate(144deg); }
+.sepal:nth-child(4) { transform: translateX(-50%) rotate(-72deg); }
+.sepal:nth-child(5) { transform: translateX(-50%) rotate(-144deg); }
+
+/* Tomato stem */
+.stem {
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5px;
+    height: 12px;
+    background: linear-gradient(180deg, #1e8449, #27ae60);
+    border-radius: 2px 2px 1px 1px;
+    z-index: 5;
+}
+
+/* Tomato blush */
+.buddy-fruit .blush { display: flex; gap: 30px; margin-top: 2px; }
+.buddy-fruit .blush::before,
+.buddy-fruit .blush::after {
+    content: '';
+    width: 14px; height: 8px;
+    background: rgba(255, 200, 200, 0.5);
+    border-radius: 50%;
+}
+
+/* Tomato nose — hidden */
+.buddy-fruit .nose { display: none; }
+
+/* ===== CAT ===== */
 .buddy-cat {
-    background: #ffeaa7 !important;
+    background: radial-gradient(circle at 50% 40%, #fff0c0 0%, #ffeaa7 40%, #f8cf5f 90%) !important;
     border: 4px solid #f8b739;
-    border-radius: 50% 50% 45% 45% !important;
+    border-radius: 48% 48% 44% 44% !important;
+    width: 118px;
+    height: 122px;
+    box-shadow:
+        0 10px 30px rgba(248,183,57,0.2),
+        inset 0 -6px 12px rgba(0,0,0,0.05),
+        inset 0 3px 8px rgba(255,255,255,0.2);
 }
 
 .buddy-cat .fruit-parts { display: none; }
 .buddy-cat .cat-parts { display: block; }
+
+/* Cat stripe markings */
+.buddy-cat::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 12px;
+    z-index: 1;
+    background:
+        linear-gradient(180deg, transparent 0%, transparent 30%, rgba(200,160,50,0.3) 30%, rgba(200,160,50,0.3) 38%, transparent 38%, transparent 58%, rgba(200,160,50,0.3) 58%, rgba(200,160,50,0.3) 66%, transparent 66%, transparent 86%, rgba(200,160,50,0.3) 86%, rgba(200,160,50,0.3) 94%, transparent 94%);
+    border-radius: 2px;
+}
+
+/* Nose */
+.nose { display: none; }
+.buddy-cat .nose {
+    display: block;
+    width: 8px;
+    height: 6px;
+    background: #ffb5bf;
+    margin: 3px auto 0;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    border-radius: 0 0 2px 2px;
+}
 
 /* Face */
 .face {
     position: relative;
     top: -10px;
     animation: face-drift 8s ease-in-out infinite;
+    z-index: 5;
 }
 
 .eyes { display: flex; gap: 20px; }
 
 .eye {
     width: 8px;
-    height: 8px;
+    height: 10px;
     background: #2d3436;
     border-radius: 50%;
     animation: blink 4s infinite;
+    position: relative;
+}
+
+.eye::after {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #fff;
+    border-radius: 50%;
+    top: 1px;
+    right: 1px;
+}
+
+.buddy-cat .eye {
+    width: 9px;
+    height: 12px;
+    border-radius: 50% 50% 45% 45%;
 }
 
 @keyframes blink {
@@ -306,10 +432,37 @@ body {
     margin: 5px auto;
 }
 
+/* Cat omega mouth */
 .buddy-cat .mouth {
-    width: 8px;
-    height: 4px;
-    border-radius: 0 0 8px 8px;
+    width: 14px;
+    height: 5px;
+    border-bottom: none;
+    border-radius: 0;
+    margin: 0px auto;
+    position: relative;
+}
+
+.buddy-cat .mouth::before,
+.buddy-cat .mouth::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 7px;
+    height: 5px;
+    border: 1.5px solid #2d3436;
+    border-top: none;
+}
+
+.buddy-cat .mouth::before {
+    left: 0;
+    border-radius: 0 0 0 6px;
+    border-right: none;
+}
+
+.buddy-cat .mouth::after {
+    right: 0;
+    border-radius: 0 0 6px 0;
+    border-left: none;
 }
 
 .timer-display {
@@ -317,28 +470,21 @@ body {
     font-weight: 800;
     color: #2d3436;
     margin-top: 10px;
+    z-index: 5;
 }
 
 /* Blush */
 .blush { display: flex; gap: 30px; margin-top: 2px; }
 
-.buddy-fruit .blush::before,
-.buddy-fruit .blush::after {
-    content: '';
-    width: 12px; height: 7px;
-    background: rgba(255, 120, 120, 0.4);
-    border-radius: 50%;
-}
-
 .buddy-cat .blush::before,
 .buddy-cat .blush::after {
     content: '';
-    width: 12px; height: 7px;
-    background: rgba(255, 150, 180, 0.5);
+    width: 13px; height: 8px;
+    background: rgba(255, 150, 180, 0.45);
     border-radius: 50%;
 }
 
-/* Fruit parts */
+/* Fruit parts container */
 .fruit-parts {
     position: absolute;
     top: 0; left: 0;
@@ -346,39 +492,7 @@ body {
     pointer-events: none;
 }
 
-.leaf {
-    position: absolute;
-    top: -8px; left: 50%;
-    transform: translateX(-50%);
-    width: 30px; height: 14px;
-    background: #2ecc71;
-    border-radius: 50% 50% 0 0;
-    z-index: 2;
-}
-
-.leaf::before, .leaf::after {
-    content: '';
-    position: absolute;
-    width: 14px; height: 10px;
-    background: #27ae60;
-    border-radius: 50%;
-    top: 2px;
-}
-
-.leaf::before { left: 2px; transform: rotate(-20deg); }
-.leaf::after { right: 2px; transform: rotate(20deg); }
-
-.stem {
-    position: absolute;
-    top: -14px; left: 50%;
-    transform: translateX(-50%);
-    width: 4px; height: 10px;
-    background: #27ae60;
-    border-radius: 2px;
-    z-index: 3;
-}
-
-/* Cat parts */
+/* Cat parts container */
 .cat-parts {
     position: absolute;
     top: 0; left: 0;
@@ -386,72 +500,112 @@ body {
     pointer-events: none;
 }
 
+/* Cat ears */
 .cat-ear {
     position: absolute;
     width: 0; height: 0;
-    border-left: 14px solid transparent;
-    border-right: 14px solid transparent;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
     z-index: 2;
 }
 
-.left-ear { top: -16px; left: 10px; border-bottom: 22px solid #f8b739; }
-.right-ear { top: -16px; right: 10px; border-bottom: 22px solid #f8b739; }
+.left-ear { top: -18px; left: 8px; border-bottom: 26px solid #f8b739; }
+.right-ear { top: -18px; right: 8px; border-bottom: 26px solid #f8b739; }
 
 .left-ear::after, .right-ear::after {
     content: '';
     position: absolute;
-    top: 6px;
+    top: 8px;
     width: 0; height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 14px solid #ffcdd2;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-bottom: 16px solid #ffb5bf;
 }
 
-.left-ear::after { left: -8px; }
-.right-ear::after { left: -8px; }
+.left-ear::after { left: -9px; }
+.right-ear::after { left: -9px; }
 
+/* Cat whiskers */
 .whiskers {
     position: absolute;
     width: 100%;
     top: 55%;
-    z-index: 1;
+    z-index: 6;
 }
 
 .whisker-set {
     position: absolute;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 5px;
 }
 
-.left-whiskers { left: -22px; align-items: flex-end; }
-.right-whiskers { right: -22px; align-items: flex-start; }
+.left-whiskers { left: -24px; align-items: flex-end; }
+.right-whiskers { right: -24px; align-items: flex-start; }
 
 .whisker {
-    width: 22px;
+    width: 24px;
     height: 1.5px;
-    background: #636e72;
+    background: linear-gradient(90deg, #aaa, #636e72);
     border-radius: 1px;
 }
 
-.left-whiskers .whisker:first-child { transform: rotate(-10deg); }
-.left-whiskers .whisker:last-child { transform: rotate(10deg); }
-.right-whiskers .whisker:first-child { transform: rotate(10deg); }
-.right-whiskers .whisker:last-child { transform: rotate(-10deg); }
+.right-whiskers .whisker {
+    background: linear-gradient(90deg, #636e72, #aaa);
+}
 
+.left-whiskers .whisker:first-child { transform: rotate(-12deg); }
+.left-whiskers .whisker:last-child { transform: rotate(12deg); }
+.right-whiskers .whisker:first-child { transform: rotate(12deg); }
+.right-whiskers .whisker:last-child { transform: rotate(-12deg); }
+
+/* Cat tail */
 .cat-tail {
     position: absolute;
-    bottom: 5px; right: -20px;
-    width: 30px; height: 30px;
+    bottom: 5px; right: -22px;
+    width: 32px; height: 32px;
     border: 4px solid #f8b739;
     border-color: transparent #f8b739 #f8b739 transparent;
-    border-radius: 0 0 20px 0;
+    border-radius: 0 0 22px 0;
     animation: tail-wag 2s ease-in-out infinite;
 }
 
 @keyframes tail-wag {
     0%, 100% { transform: rotate(0deg); }
     50% { transform: rotate(15deg); }
+}
+
+/* Cat paws */
+.cat-paws {
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 30px;
+    z-index: 3;
+}
+
+.paw {
+    width: 18px;
+    height: 10px;
+    background: #f8cf5f;
+    border-radius: 50% 50% 40% 40%;
+    border: 2px solid #f8b739;
+    border-top: none;
+    position: relative;
+}
+
+.paw::before {
+    content: '';
+    position: absolute;
+    bottom: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 4px;
+    background: #ffb5bf;
+    border-radius: 50%;
 }
 
 /* Idle animation */

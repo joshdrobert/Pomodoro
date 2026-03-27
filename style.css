@@ -87,6 +87,7 @@ body {
     position: relative;
     top: -10px;
     animation: face-drift 8s ease-in-out infinite;
+    z-index: 5;
 }
 
 .eyes {
@@ -96,10 +97,23 @@ body {
 
 .eye {
     width: 8px;
-    height: 8px;
+    height: 10px;
     background: #2d3436;
     border-radius: 50%;
     animation: blink 4s infinite;
+    position: relative;
+}
+
+/* Cute eye highlights */
+.eye::after {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #fff;
+    border-radius: 50%;
+    top: 1px;
+    right: 1px;
 }
 
 @keyframes blink {
@@ -115,12 +129,18 @@ body {
     margin: 5px auto;
 }
 
+/* Nose — hidden for tomato, shown for cat */
+.nose {
+    display: none;
+}
+
 /* ===== Timer ===== */
 .timer-display {
     font-size: 24px;
     font-weight: 800;
     color: var(--text-color);
     margin-top: 10px;
+    z-index: 5;
 }
 
 /* ===== Controls ===== */
@@ -210,7 +230,10 @@ button:hover {
     50% { transform: translate(2px, 1px); }
 }
 
-/* ===== FRUIT Character ===== */
+
+/* =============================================
+   TOMATO / FRUIT CHARACTER
+   ============================================= */
 .fruit-parts {
     position: absolute;
     top: 0;
@@ -228,54 +251,102 @@ button:hover {
     display: none;
 }
 
-/* Tomato leaf */
-.leaf {
+/* Tomato body shape — slightly squashed, wider than tall */
+.buddy-fruit {
+    border-radius: 48% 48% 46% 46% / 42% 42% 54% 54%;
+    width: 126px;
+    height: 112px;
+}
+
+/* Tomato body colour — 3D gradient shading */
+.mode-focus .buddy-fruit {
+    background: radial-gradient(circle at 35% 30%, #ff8e8e 0%, #ff6b6b 40%, #e74c3c 80%, #c0392b 100%);
+    border-color: #c0392b;
+    box-shadow:
+        0 10px 30px rgba(231,76,60,0.3),
+        inset 0 -8px 16px rgba(0,0,0,0.1),
+        inset 0 4px 10px rgba(255,255,255,0.15);
+}
+
+.mode-break .buddy-fruit {
+    background: radial-gradient(circle at 35% 30%, #fff3cd 0%, #ffeaa7 40%, #f9ca24 80%, #e1b12c 100%);
+    border-color: #f39c12;
+    box-shadow:
+        0 10px 30px rgba(243,156,18,0.2),
+        inset 0 -8px 16px rgba(0,0,0,0.06),
+        inset 0 4px 10px rgba(255,255,255,0.2);
+}
+
+/* Tomato highlight / light reflection */
+.tomato-highlight {
     position: absolute;
-    top: -8px;
+    top: 12px;
+    left: 18px;
+    width: 22px;
+    height: 16px;
+    background: rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+    transform: rotate(-30deg);
+    z-index: 1;
+    filter: blur(2px);
+}
+
+/* ===== Tomato Calyx (Star-shaped green sepals) ===== */
+.calyx {
+    position: absolute;
+    top: -6px;
     left: 50%;
     transform: translateX(-50%);
-    width: 30px;
-    height: 14px;
-    background: #2ecc71;
-    border-radius: 50% 50% 0 0;
-    z-index: 2;
+    width: 40px;
+    height: 18px;
+    z-index: 4;
 }
 
-.leaf::before,
-.leaf::after {
-    content: '';
+.sepal {
     position: absolute;
-    width: 14px;
-    height: 10px;
-    background: #27ae60;
-    border-radius: 50%;
-    top: 2px;
+    width: 12px;
+    height: 16px;
+    background: linear-gradient(180deg, #27ae60 0%, #2ecc71 100%);
+    border-radius: 2px 2px 50% 50%;
+    bottom: 0;
+    left: 50%;
+    transform-origin: bottom center;
 }
 
-.leaf::before {
-    left: 2px;
-    transform: rotate(-20deg);
+.sepal:nth-child(1) {
+    transform: translateX(-50%) rotate(0deg);
 }
 
-.leaf::after {
-    right: 2px;
-    transform: rotate(20deg);
+.sepal:nth-child(2) {
+    transform: translateX(-50%) rotate(72deg);
+}
+
+.sepal:nth-child(3) {
+    transform: translateX(-50%) rotate(144deg);
+}
+
+.sepal:nth-child(4) {
+    transform: translateX(-50%) rotate(-72deg);
+}
+
+.sepal:nth-child(5) {
+    transform: translateX(-50%) rotate(-144deg);
 }
 
 /* Tomato stem */
 .stem {
     position: absolute;
-    top: -14px;
+    top: -16px;
     left: 50%;
     transform: translateX(-50%);
-    width: 4px;
-    height: 10px;
-    background: #27ae60;
-    border-radius: 2px;
-    z-index: 3;
+    width: 5px;
+    height: 12px;
+    background: linear-gradient(180deg, #1e8449, #27ae60);
+    border-radius: 2px 2px 1px 1px;
+    z-index: 5;
 }
 
-/* Give fruit buddy a tomato blush */
+/* Tomato blush — cute pink cheeks */
 .buddy-fruit .blush {
     display: flex;
     gap: 30px;
@@ -285,28 +356,18 @@ button:hover {
 .buddy-fruit .blush::before,
 .buddy-fruit .blush::after {
     content: '';
-    width: 12px;
-    height: 7px;
-    background: rgba(255, 120, 120, 0.4);
+    width: 14px;
+    height: 8px;
+    background: rgba(255, 200, 200, 0.5);
     border-radius: 50%;
 }
 
 .buddy-fruit .blush::before { margin-right: 0; }
 .buddy-fruit .blush::after { margin-left: 0; }
 
-/* Fruit mode: rounder, more tomato-like */
-.buddy-fruit {
-    border-radius: 50%;
-}
-
-.mode-focus .buddy-fruit {
-    background: #ff6b6b;
-    border-color: #e74c3c;
-}
-
-.mode-break .buddy-fruit {
-    background: #ffeaa7;
-    border-color: #f39c12;
+/* Tomato nose hidden */
+.buddy-fruit .nose {
+    display: none;
 }
 
 .buddy-fruit .timer-display {
@@ -319,7 +380,10 @@ button:hover {
     text-shadow: none;
 }
 
-/* ===== CAT Character ===== */
+
+/* =============================================
+   CAT CHARACTER
+   ============================================= */
 .cat-parts {
     position: absolute;
     top: 0;
@@ -337,97 +401,243 @@ button:hover {
     display: block;
 }
 
-/* Cat ears */
+/* Cat body — rounder, slightly taller */
+.buddy-cat {
+    border-radius: 48% 48% 44% 44%;
+    width: 118px;
+    height: 122px;
+}
+
+/* Cat body colours with fur-like gradient */
+.mode-focus .buddy-cat {
+    background: radial-gradient(circle at 50% 40%, #fff0c0 0%, #ffeaa7 40%, #f8cf5f 90%);
+    border-color: #f8b739;
+    box-shadow:
+        0 10px 30px rgba(248,183,57,0.2),
+        inset 0 -6px 12px rgba(0,0,0,0.05),
+        inset 0 3px 8px rgba(255,255,255,0.2);
+}
+
+.mode-break .buddy-cat {
+    background: radial-gradient(circle at 50% 40%, #f0f3f5 0%, #dfe6e9 40%, #b2bec3 100%);
+    border-color: #b2bec3;
+    box-shadow:
+        0 10px 30px rgba(178,190,195,0.2),
+        inset 0 -6px 12px rgba(0,0,0,0.04),
+        inset 0 3px 8px rgba(255,255,255,0.3);
+}
+
+/* Cat stripe markings on forehead */
+.buddy-cat::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 12px;
+    z-index: 1;
+    background:
+        linear-gradient(180deg, transparent 0%, transparent 30%, rgba(200,160,50,0.3) 30%, rgba(200,160,50,0.3) 38%, transparent 38%, transparent 58%, rgba(200,160,50,0.3) 58%, rgba(200,160,50,0.3) 66%, transparent 66%, transparent 86%, rgba(200,160,50,0.3) 86%, rgba(200,160,50,0.3) 94%, transparent 94%);
+    border-radius: 2px;
+}
+
+.mode-break .buddy-cat::before {
+    background:
+        linear-gradient(180deg, transparent 0%, transparent 30%, rgba(150,150,150,0.2) 30%, rgba(150,150,150,0.2) 38%, transparent 38%, transparent 58%, rgba(150,150,150,0.2) 58%, rgba(150,150,150,0.2) 66%, transparent 66%, transparent 86%, rgba(150,150,150,0.2) 86%, rgba(150,150,150,0.2) 94%, transparent 94%);
+}
+
+/* Cat ears — more realistic pointed shape */
 .cat-ear {
     position: absolute;
     width: 0;
     height: 0;
-    border-left: 14px solid transparent;
-    border-right: 14px solid transparent;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
     z-index: 2;
 }
 
 .left-ear {
-    top: -16px;
-    left: 10px;
-    border-bottom: 22px solid #f8b739;
+    top: -18px;
+    left: 8px;
+    border-bottom: 26px solid #f8b739;
 }
 
 .right-ear {
-    top: -16px;
-    right: 10px;
-    border-bottom: 22px solid #f8b739;
+    top: -18px;
+    right: 8px;
+    border-bottom: 26px solid #f8b739;
 }
 
-/* Inner ear */
+.mode-break .left-ear {
+    border-bottom-color: #b2bec3;
+}
+
+.mode-break .right-ear {
+    border-bottom-color: #b2bec3;
+}
+
+/* Inner ear — pink */
 .left-ear::after,
 .right-ear::after {
     content: '';
     position: absolute;
-    top: 6px;
+    top: 8px;
     width: 0;
     height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 14px solid #ffcdd2;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-bottom: 16px solid #ffb5bf;
 }
 
-.left-ear::after { left: -8px; }
-.right-ear::after { left: -8px; }
+.left-ear::after { left: -9px; }
+.right-ear::after { left: -9px; }
+
+/* Cat nose — small pink triangle */
+.buddy-cat .nose {
+    display: block;
+    width: 8px;
+    height: 6px;
+    background: #ffb5bf;
+    margin: 3px auto 0;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    border-radius: 0 0 2px 2px;
+}
+
+/* Cat mouth override — "ω" cat smile */
+.buddy-cat .mouth {
+    width: 14px;
+    height: 5px;
+    border-bottom: none;
+    border-radius: 0;
+    margin: 0px auto;
+    position: relative;
+}
+
+.buddy-cat .mouth::before,
+.buddy-cat .mouth::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 7px;
+    height: 5px;
+    border: 1.5px solid #2d3436;
+    border-top: none;
+}
+
+.buddy-cat .mouth::before {
+    left: 0;
+    border-radius: 0 0 0 6px;
+    border-right: none;
+}
+
+.buddy-cat .mouth::after {
+    right: 0;
+    border-radius: 0 0 6px 0;
+    border-left: none;
+}
 
 /* Cat whiskers */
 .whiskers {
     position: absolute;
     width: 100%;
     top: 55%;
-    z-index: 1;
+    z-index: 6;
 }
 
 .whisker-set {
     position: absolute;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 5px;
 }
 
 .left-whiskers {
-    left: -22px;
+    left: -24px;
     align-items: flex-end;
 }
 
 .right-whiskers {
-    right: -22px;
+    right: -24px;
     align-items: flex-start;
 }
 
 .whisker {
-    width: 22px;
+    width: 24px;
     height: 1.5px;
-    background: #636e72;
+    background: linear-gradient(90deg, #aaa, #636e72);
     border-radius: 1px;
 }
 
-.left-whiskers .whisker:first-child { transform: rotate(-10deg); }
-.left-whiskers .whisker:last-child  { transform: rotate(10deg); }
-.right-whiskers .whisker:first-child { transform: rotate(10deg); }
-.right-whiskers .whisker:last-child  { transform: rotate(-10deg); }
+.right-whiskers .whisker {
+    background: linear-gradient(90deg, #636e72, #aaa);
+}
 
-/* Cat tail */
+.left-whiskers .whisker:first-child { transform: rotate(-12deg); }
+.left-whiskers .whisker:last-child  { transform: rotate(12deg); }
+.right-whiskers .whisker:first-child { transform: rotate(12deg); }
+.right-whiskers .whisker:last-child  { transform: rotate(-12deg); }
+
+/* Cat tail — curled */
 .cat-tail {
     position: absolute;
     bottom: 5px;
-    right: -20px;
-    width: 30px;
-    height: 30px;
+    right: -22px;
+    width: 32px;
+    height: 32px;
     border: 4px solid #f8b739;
     border-color: transparent #f8b739 #f8b739 transparent;
-    border-radius: 0 0 20px 0;
+    border-radius: 0 0 22px 0;
     animation: tail-wag 2s ease-in-out infinite;
+    z-index: 0;
+}
+
+.mode-break .cat-tail {
+    border-color: transparent #b2bec3 #b2bec3 transparent;
 }
 
 @keyframes tail-wag {
     0%, 100% { transform: rotate(0deg); }
     50% { transform: rotate(15deg); }
+}
+
+/* Cat paws */
+.cat-paws {
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 30px;
+    z-index: 3;
+}
+
+.paw {
+    width: 18px;
+    height: 10px;
+    background: #f8cf5f;
+    border-radius: 50% 50% 40% 40%;
+    border: 2px solid #f8b739;
+    border-top: none;
+    position: relative;
+}
+
+.mode-break .paw {
+    background: #cfd9db;
+    border-color: #b2bec3;
+}
+
+/* Paw pads */
+.paw::before {
+    content: '';
+    position: absolute;
+    bottom: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 4px;
+    background: #ffb5bf;
+    border-radius: 50%;
 }
 
 /* Cat blush */
@@ -440,31 +650,15 @@ button:hover {
 .buddy-cat .blush::before,
 .buddy-cat .blush::after {
     content: '';
-    width: 12px;
-    height: 7px;
-    background: rgba(255, 150, 180, 0.5);
+    width: 13px;
+    height: 8px;
+    background: rgba(255, 150, 180, 0.45);
     border-radius: 50%;
 }
 
-/* Cat mouth override - cat smile */
-.buddy-cat .mouth {
-    width: 8px;
-    height: 4px;
-    border-bottom: 2px solid #2d3436;
-    border-radius: 0 0 8px 8px;
-}
-
-/* Cat mode body colour */
-.buddy-cat {
+/* Cat eyes — slightly bigger, cuter */
+.buddy-cat .eye {
+    width: 9px;
+    height: 12px;
     border-radius: 50% 50% 45% 45%;
-}
-
-.mode-focus .buddy-cat {
-    background: #ffeaa7;
-    border-color: #f8b739;
-}
-
-.mode-break .buddy-cat {
-    background: #dfe6e9;
-    border-color: #b2bec3;
 }
