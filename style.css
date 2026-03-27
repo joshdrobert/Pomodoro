@@ -49,9 +49,11 @@ body {
     border: 4px solid var(--bg-break);
 }
 
+/* ===== Shared Face ===== */
 .face {
     position: relative;
     top: -10px;
+    animation: face-drift 8s ease-in-out infinite;
 }
 
 .eyes {
@@ -80,6 +82,7 @@ body {
     margin: 5px auto;
 }
 
+/* ===== Timer ===== */
 .timer-display {
     font-size: 24px;
     font-weight: 800;
@@ -87,6 +90,7 @@ body {
     margin-top: 10px;
 }
 
+/* ===== Controls ===== */
 .controls {
     margin-top: 20px;
     display: flex;
@@ -94,6 +98,7 @@ body {
     opacity: 0;
     transition: opacity 0.3s ease;
     -webkit-app-region: no-drag;
+    align-items: center;
 }
 
 #buddy-container:hover .controls {
@@ -116,6 +121,12 @@ button:hover {
     background: white;
 }
 
+#char-btn {
+    font-size: 16px;
+    padding: 4px 10px;
+    line-height: 1;
+}
+
 .settings {
     margin-top: 5px;
     display: flex;
@@ -131,7 +142,7 @@ button:hover {
     font-size: 12px;
 }
 
-/* Animations */
+/* ===== Animations ===== */
 .idle {
     animation: breathe 4s ease-in-out infinite, wobble 10s ease-in-out infinite;
 }
@@ -161,13 +172,266 @@ button:hover {
     50% { transform: translateY(-5px); }
 }
 
-.face {
-    position: relative;
-    top: -10px;
-    animation: face-drift 8s ease-in-out infinite;
-}
-
 @keyframes face-drift {
     0%, 100% { transform: translate(0, 0); }
     50% { transform: translate(2px, 1px); }
+}
+
+/* ===== FRUIT Character ===== */
+.fruit-parts {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.buddy-fruit .fruit-parts {
+    display: block;
+}
+
+.buddy-cat .fruit-parts {
+    display: none;
+}
+
+/* Tomato leaf */
+.leaf {
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 14px;
+    background: #2ecc71;
+    border-radius: 50% 50% 0 0;
+    z-index: 2;
+}
+
+.leaf::before,
+.leaf::after {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 10px;
+    background: #27ae60;
+    border-radius: 50%;
+    top: 2px;
+}
+
+.leaf::before {
+    left: 2px;
+    transform: rotate(-20deg);
+}
+
+.leaf::after {
+    right: 2px;
+    transform: rotate(20deg);
+}
+
+/* Tomato stem */
+.stem {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 10px;
+    background: #27ae60;
+    border-radius: 2px;
+    z-index: 3;
+}
+
+/* Give fruit buddy a tomato blush */
+.buddy-fruit .blush {
+    display: flex;
+    gap: 30px;
+    margin-top: 2px;
+}
+
+.buddy-fruit .blush::before,
+.buddy-fruit .blush::after {
+    content: '';
+    width: 12px;
+    height: 7px;
+    background: rgba(255, 120, 120, 0.4);
+    border-radius: 50%;
+}
+
+.buddy-fruit .blush::before { margin-right: 0; }
+.buddy-fruit .blush::after { margin-left: 0; }
+
+/* Fruit mode: rounder, more tomato-like */
+.buddy-fruit {
+    border-radius: 50%;
+}
+
+.mode-focus .buddy-fruit {
+    background: #ff6b6b;
+    border-color: #e74c3c;
+}
+
+.mode-break .buddy-fruit {
+    background: #ffeaa7;
+    border-color: #f39c12;
+}
+
+.buddy-fruit .timer-display {
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.mode-break .buddy-fruit .timer-display {
+    color: var(--text-color);
+    text-shadow: none;
+}
+
+/* ===== CAT Character ===== */
+.cat-parts {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.buddy-fruit .cat-parts {
+    display: none;
+}
+
+.buddy-cat .cat-parts {
+    display: block;
+}
+
+/* Cat ears */
+.cat-ear {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    z-index: 2;
+}
+
+.left-ear {
+    top: -16px;
+    left: 10px;
+    border-bottom: 22px solid #f8b739;
+}
+
+.right-ear {
+    top: -16px;
+    right: 10px;
+    border-bottom: 22px solid #f8b739;
+}
+
+/* Inner ear */
+.left-ear::after,
+.right-ear::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 14px solid #ffcdd2;
+}
+
+.left-ear::after { left: -8px; }
+.right-ear::after { left: -8px; }
+
+/* Cat whiskers */
+.whiskers {
+    position: absolute;
+    width: 100%;
+    top: 55%;
+    z-index: 1;
+}
+
+.whisker-set {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.left-whiskers {
+    left: -22px;
+    align-items: flex-end;
+}
+
+.right-whiskers {
+    right: -22px;
+    align-items: flex-start;
+}
+
+.whisker {
+    width: 22px;
+    height: 1.5px;
+    background: #636e72;
+    border-radius: 1px;
+}
+
+.left-whiskers .whisker:first-child { transform: rotate(-10deg); }
+.left-whiskers .whisker:last-child  { transform: rotate(10deg); }
+.right-whiskers .whisker:first-child { transform: rotate(10deg); }
+.right-whiskers .whisker:last-child  { transform: rotate(-10deg); }
+
+/* Cat tail */
+.cat-tail {
+    position: absolute;
+    bottom: 5px;
+    right: -20px;
+    width: 30px;
+    height: 30px;
+    border: 4px solid #f8b739;
+    border-color: transparent #f8b739 #f8b739 transparent;
+    border-radius: 0 0 20px 0;
+    animation: tail-wag 2s ease-in-out infinite;
+}
+
+@keyframes tail-wag {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(15deg); }
+}
+
+/* Cat blush */
+.buddy-cat .blush {
+    display: flex;
+    gap: 30px;
+    margin-top: 2px;
+}
+
+.buddy-cat .blush::before,
+.buddy-cat .blush::after {
+    content: '';
+    width: 12px;
+    height: 7px;
+    background: rgba(255, 150, 180, 0.5);
+    border-radius: 50%;
+}
+
+/* Cat mouth override - cat smile */
+.buddy-cat .mouth {
+    width: 8px;
+    height: 4px;
+    border-bottom: 2px solid #2d3436;
+    border-radius: 0 0 8px 8px;
+}
+
+/* Cat mode body colour */
+.buddy-cat {
+    border-radius: 50% 50% 45% 45%;
+}
+
+.mode-focus .buddy-cat {
+    background: #ffeaa7;
+    border-color: #f8b739;
+}
+
+.mode-break .buddy-cat {
+    background: #dfe6e9;
+    border-color: #b2bec3;
 }

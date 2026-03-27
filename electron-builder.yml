@@ -6,4 +6,5 @@ mac:
   category: public.app-category.productivity
   target:
     - dmg
+    - zip
   icon: icon.png

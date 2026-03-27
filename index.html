@@ -7,8 +7,31 @@
 </head>
 <body>
     <div id="buddy-container" class="draggable">
-        <div id="buddy" class="idle">
-            <div class="ears"></div>
+        <div id="buddy" class="idle buddy-fruit">
+            <!-- Fruit character -->
+            <div class="fruit-parts">
+                <div class="leaf"></div>
+                <div class="stem"></div>
+            </div>
+            <!-- Cat character -->
+            <div class="cat-parts">
+                <div class="cat-ear left-ear"></div>
+                <div class="cat-ear right-ear"></div>
+                <div class="whiskers">
+                    <div class="whisker-set left-whiskers">
+                        <div class="whisker"></div>
+                        <div class="whisker"></div>
+                        <div class="whisker"></div>
+                    </div>
+                    <div class="whisker-set right-whiskers">
+                        <div class="whisker"></div>
+                        <div class="whisker"></div>
+                        <div class="whisker"></div>
+                    </div>
+                </div>
+                <div class="cat-tail"></div>
+            </div>
+            <!-- Shared face -->
             <div class="face">
                 <div class="eyes">
                     <div class="eye left"></div>
@@ -24,6 +47,7 @@
         <div class="controls">
             <button id="start-btn">Start</button>
             <button id="reset-btn">Reset</button>
+            <button id="char-btn" title="Switch character">🍅</button>
             <div class="settings">
                 <input type="number" id="work-time" value="25" min="1" max="60">
                 <input type="number" id="break-time" value="5" min="1" max="60">
