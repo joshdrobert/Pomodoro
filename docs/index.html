@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Buddy — Your Cute Desktop Focus Timer</title>
+    <meta name="description" content="A cute, adorable desktop Pomodoro timer that sits on your screen as a tiny buddy. Choose between a tomato or cat character. Free for macOS.">
+    <link rel="icon" href="icon.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Floating particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Hero -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <div class="badge">🍅 Free & Open Source</div>
+            <h1>Pomodoro Buddy</h1>
+            <p class="tagline">A tiny, adorable desktop companion that keeps you focused.<br>Pick your buddy — tomato or cat — and crush your work sessions.</p>
+            <div class="hero-actions">
+                <a href="https://github.com/joshdrobert/Pomodoro/releases/latest" class="btn btn-primary" id="download-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Download for macOS
+                </a>
+                <a href="https://github.com/joshdrobert/Pomodoro" class="btn btn-ghost" id="github-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    View on GitHub
+                </a>
+            </div>
+        </div>
+
+        <!-- Interactive Character Preview -->
+        <div class="preview-card">
+            <div class="preview-window">
+                <div class="preview-dots">
+                    <span></span><span></span><span></span>
+                </div>
+                <div class="buddy-preview" id="buddy-preview">
+                    <div id="buddy" class="idle buddy-fruit">
+                        <!-- Fruit parts -->
+                        <div class="fruit-parts">
+                            <div class="leaf"></div>
+                            <div class="stem"></div>
+                        </div>
+                        <!-- Cat parts -->
+                        <div class="cat-parts">
+                            <div class="cat-ear left-ear"></div>
+                            <div class="cat-ear right-ear"></div>
+                            <div class="whiskers">
+                                <div class="whisker-set left-whiskers">
+                                    <div class="whisker"></div>
+                                    <div class="whisker"></div>
+                                    <div class="whisker"></div>
+                                </div>
+                                <div class="whisker-set right-whiskers">
+                                    <div class="whisker"></div>
+                                    <div class="whisker"></div>
+                                    <div class="whisker"></div>
+                                </div>
+                            </div>
+                            <div class="cat-tail"></div>
+                        </div>
+                        <!-- Shared face -->
+                        <div class="face">
+                            <div class="eyes">
+                                <div class="eye left"></div>
+                                <div class="eye right"></div>
+                            </div>
+                            <div class="blush"></div>
+                            <div class="mouth"></div>
+                        </div>
+                        <div class="timer-display">25:00</div>
+                    </div>
+                </div>
+
+                <div class="char-toggle" id="char-toggle">
+                    <button class="toggle-btn active" data-char="fruit" id="fruit-btn">🍅 Tomato</button>
+                    <button class="toggle-btn" data-char="cat" id="cat-btn">🐱 Cat</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="features-grid">
+            <div class="feature-card" id="feature-timer">
+                <div class="feature-icon">⏱️</div>
+                <h3>Pomodoro Timer</h3>
+                <p>Classic 25/5 minute work-break cycles. Customizable focus and break durations to match your flow.</p>
+            </div>
+            <div class="feature-card" id="feature-characters">
+                <div class="feature-icon">🐱</div>
+                <h3>Cute Characters</h3>
+                <p>Choose between a cheerful tomato or an adorable cat. Your buddy reacts and animates as you work.</p>
+            </div>
+            <div class="feature-card" id="feature-widget">
+                <div class="feature-icon">🖥️</div>
+                <h3>Desktop Widget</h3>
+                <p>A tiny, always-on-top companion that floats on your screen. Drag it anywhere you like.</p>
+            </div>
+            <div class="feature-card" id="feature-notifications">
+                <div class="feature-icon">🔔</div>
+                <h3>Notifications</h3>
+                <p>Get notified when it's time to focus or take a break. Never miss a session transition.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="cta">
+        <h2>Ready to focus?</h2>
+        <p>Download Pomodoro Buddy and let your new desktop companion keep you on track.</p>
+        <a href="https://github.com/joshdrobert/Pomodoro/releases/latest" class="btn btn-primary btn-lg" id="cta-download-btn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download for macOS
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+        <p>Made by <a href="https://www.linkedin.com/in/joshua-robert/" target="_blank" rel="noopener noreferrer" id="linkedin-link">Joshua Robert</a></p>
+    </footer>
+
+    <script>
+        // Character toggle
+        const buddy = document.getElementById('buddy');
+        const fruitBtn = document.getElementById('fruit-btn');
+        const catBtn = document.getElementById('cat-btn');
+
+        function setCharacter(char) {
+            buddy.classList.remove('buddy-fruit', 'buddy-cat');
+            buddy.classList.add(char === 'cat' ? 'buddy-cat' : 'buddy-fruit');
+
+            fruitBtn.classList.toggle('active', char === 'fruit');
+            catBtn.classList.toggle('active', char === 'cat');
+        }
+
+        fruitBtn.addEventListener('click', () => setCharacter('fruit'));
+        catBtn.addEventListener('click', () => setCharacter('cat'));
+
+        // Floating particles
+        const particlesEl = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (15 + Math.random() * 20) + 's';
+            particle.style.opacity = (0.15 + Math.random() * 0.25);
+            particle.style.width = particle.style.height = (3 + Math.random() * 5) + 'px';
+            particlesEl.appendChild(particle);
+        }
+    </script>
+</body>
+</html>
