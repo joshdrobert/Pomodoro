@@ -99,3 +99,8 @@ resetBtn.addEventListener('click', () => {
 timeLeft = workTimeInput.value * 60;
 document.body.className = 'mode-focus';
 updateDisplay();
+
+// ---- Quit Button ----
+document.getElementById('quit-btn').addEventListener('click', () => {
+    window.close();
+});
