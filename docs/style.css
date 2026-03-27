@@ -501,8 +501,15 @@ body {
 }
 
 .feature-icon {
-    font-size: 32px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: rgba(255, 107, 107, 0.1);
     margin-bottom: 16px;
+    color: var(--accent-soft);
 }
 
 .feature-card h3 {
