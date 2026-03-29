@@ -1,15 +1,18 @@
 {
   "name": "pomodoro-buddy",
-  "version": "1.3.4",
-  "description": "A cute, ultra-lightweight Pomodoro buddy app for macOS.",
-  "main": "index.html",
+  "version": "1.3.6",
+  "description": "A cute Pomodoro buddy app for macOS.",
+  "main": "main.js",
   "scripts": {
     "tauri": "tauri",
     "dev": "tauri dev",
-    "build": "tauri build"
+    "build": "tauri build",
+    "build:electron": "electron-builder build --mac --arm64"
   },
   "devDependencies": {
     "@tauri-apps/api": "^2.1.0",
-    "@tauri-apps/cli": "^2.1.0"
+    "@tauri-apps/cli": "^2.1.0",
+    "electron": "^30.0.0",
+    "electron-builder": "^24.13.3"
   }
 }

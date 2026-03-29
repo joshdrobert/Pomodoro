@@ -26,13 +26,38 @@ jobs:
       - name: install dependencies
         run: npm install
 
-      - name: build tauri app
+      - name: build tauri app (10MB)
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tagName: ${{ github.ref_name }}
           releaseName: 'Pomodoro Buddy ${{ github.ref_name }}'
-          releaseBody: 'Migrated to Tauri! Application size reduced from 275MB to ~10MB.'
+          releaseBody: |
+            ### 🚀 Dual-Build Release
+            
+            This release includes two versions of Pomodoro Buddy for macOS:
+            
+            1. **`Pomodoro-Buddy-*-arm64.dmg` (~10MB)**: The new ultra-lightweight Tauri version. 
+               - *Note*: If you see "App is damaged", run this in Terminal:
+                 `xattr -cr /Applications/Pomodoro\ Buddy.app`
+            
+            2. **`Pomodoro-Buddy-*-Standard-arm64.dmg` (~275MB)**: The classic Electron version.
+               - Works out of the box (standard macOS security allowance).
+            
+            Enjoy your focus buddy! 🍅🐱
           releaseDraft: false
           prerelease: false
+
+      - name: build electron app (275MB)
+        run: npm run build:electron
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: upload electron dmg to same release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/Pomodoro-Buddy-*-Standard-arm64.dmg
+          tag_name: ${{ github.ref_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

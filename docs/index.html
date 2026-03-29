@@ -3,171 +3,231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pomodoro Buddy — Your Cute Desktop Focus Timer</title>
-    <meta name="description" content="A cute, adorable desktop Pomodoro timer that sits on your screen as a tiny buddy. Choose between a tomato or cat character. Free for macOS.">
-    <link rel="icon" href="icon.png" type="image/png">
+    <title>Pomodoro Buddy - Your Focus Companion</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff5e57;
+            --secondary: #4bcffa;
+            --dark: #1e272e;
+            --light: #f1f2f6;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #1e272e 0%, #2f3542 100%);
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #ff5e57, #ff9f43);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: #d2dae2;
+            margin-bottom: 40px;
+        }
+
+        .hero-img {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .download-options {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+
+        .download-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 300px;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .download-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary);
+        }
+
+        .download-card h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        .download-card .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            background: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .download-card p {
+            font-size: 1rem;
+            color: #d2dae2;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 16px;
+            font-weight: bold;
+            transition: 0.2s;
+            width: calc(100% - 48px);
+            text-align: center;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .troubleshooting {
+            max-width: 800px;
+            padding: 40px;
+            background: rgba(255, 94, 87, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 24px;
+            margin-bottom: 80px;
+            text-align: left;
+        }
+
+        .troubleshooting h2 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        code {
+            background: #1e272e;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-family: monospace;
+            color: var(--secondary);
+        }
+
+        .terminal-block {
+            background: #000;
+            padding: 15px;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            margin-top: 15px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .features {
+            display: flex;
+            gap: 30px;
+            margin-top: 50px;
+            max-width: 1000px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 20px;
+            width: 250px;
+            text-align: center;
+        }
+
+        footer {
+            padding: 40px;
+            color: #808e9b;
+        }
+    </style>
 </head>
 <body>
-    <!-- Floating particles -->
-    <div class="particles" id="particles"></div>
-
-    <!-- Hero -->
-    <section class="hero" id="hero">
-        <div class="hero-content">
-            <div class="badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg> Free & Open Source</div>
-            <h1>Pomodoro Buddy</h1>
-            <p class="tagline">A tiny, adorable desktop companion that keeps you focused.<br>Pick your buddy — tomato or cat — and crush your work sessions.</p>
-            <div class="hero-actions">
-                <a href="https://github.com/joshdrobert/Pomodoro/releases/latest" class="btn btn-primary" id="download-btn">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    Download for macOS
-                </a>
-                <div class="download-info">Optimized for Apple Silicon (M1/M2/M3)</div>
-                <a href="https://github.com/joshdrobert/Pomodoro" class="btn btn-ghost" id="github-btn">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                    View on GitHub
-                </a>
+    <div class="hero">
+        <img src="../icon.png" alt="Pomodoro Buddy Logo" class="hero-img">
+        <h1>Pomodoro Buddy</h1>
+        <p>A cute, ultra-lightweight focus companion for your Mac.</p>
+        
+        <div class="download-options">
+            <div class="download-card">
+                <span class="badge">Recommended</span>
+                <h3>Ultra-Lightweight</h3>
+                <p>Built with Tauri. Native performance and <b>only ~10MB</b>. Requires a one-time terminal fix below.</p>
+                <a href="https://github.com/joshdrobert/Pomodoro/releases/latest" class="btn">Download (Tauri)</a>
+            </div>
+            
+            <div class="download-card">
+                <span class="badge" style="background: #4b7bec;">Standard</span>
+                <h3>High Compatibility</h3>
+                <p>Built with Electron. Works out-of-the-box, but is larger (~275MB).</p>
+                <a href="https://github.com/joshdrobert/Pomodoro/releases/latest" class="btn btn-secondary">Download (Electron)</a>
             </div>
         </div>
 
-        <!-- Interactive Character Preview -->
-        <div class="preview-card">
-            <div class="preview-window">
-                <div class="preview-dots">
-                    <span></span><span></span><span></span>
-                </div>
-                <div class="buddy-preview" id="buddy-preview">
-                <div id="buddy" class="idle buddy-fruit">
-                        <!-- Fruit parts -->
-                        <div class="fruit-parts">
-                            <div class="tomato-highlight"></div>
-                            <div class="calyx">
-                                <div class="sepal"></div>
-                                <div class="sepal"></div>
-                                <div class="sepal"></div>
-                                <div class="sepal"></div>
-                                <div class="sepal"></div>
-                            </div>
-                            <div class="stem"></div>
-                        </div>
-                        <!-- Cat parts -->
-                        <div class="cat-parts">
-                            <div class="cat-ear left-ear"></div>
-                            <div class="cat-ear right-ear"></div>
-                            <div class="whiskers">
-                                <div class="whisker-set left-whiskers">
-                                    <div class="whisker"></div>
-                                    <div class="whisker"></div>
-                                    <div class="whisker"></div>
-                                </div>
-                                <div class="whisker-set right-whiskers">
-                                    <div class="whisker"></div>
-                                    <div class="whisker"></div>
-                                    <div class="whisker"></div>
-                                </div>
-                            </div>
-                            <div class="cat-tail"></div>
-                            <div class="cat-paws">
-                                <div class="paw left-paw"></div>
-                                <div class="paw right-paw"></div>
-                            </div>
-                        </div>
-                        <!-- Shared face -->
-                        <div class="face">
-                            <div class="eyes">
-                                <div class="eye left"></div>
-                                <div class="eye right"></div>
-                            </div>
-                            <div class="nose"></div>
-                            <div class="blush"></div>
-                            <div class="mouth"></div>
-                        </div>
-                        <div class="timer-display">25:00</div>
-                    </div>
-                </div>
+        <div class="troubleshooting">
+            <h2>🛠️ Troubleshooting (Tauri Version)</h2>
+            <p>Because Pomodoro Buddy is an independent project and isn't signed with a paid Apple Developer ID, macOS may say the <b>Tauri version</b> is "damaged" or "cannot be opened."</p>
+            <p>To fix this, simply drag the app to your <b>Applications</b> folder, then run this command in your Terminal:</p>
+            <div class="terminal-block">
+                sudo xattr -cr /Applications/Pomodoro\ Buddy.app
+            </div>
+            <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;"><i>Alternatively, download the "Standard" version above which works straight out of the box.</i></p>
+        </div>
 
-                <div class="char-toggle" id="char-toggle">
-                    <button class="toggle-btn active" data-char="fruit" id="fruit-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg> Tomato</button>
-                    <button class="toggle-btn" data-char="cat" id="cat-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/></svg> Cat</button>
-                </div>
+        <div class="features">
+            <div class="feature-item">
+                <h3>Kawaii Style</h3>
+                <p>A beautifully designed tomato buddy to keep you company.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Always on Top</h3>
+                <p>Floats over your windows so you never lose track of time.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Apple Silicon</h3>
+                <p>Native ARM64 support for maximum efficiency.</p>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Features -->
-    <section class="features" id="features">
-        <div class="features-grid">
-            <div class="feature-card" id="feature-timer">
-                <div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-                <h3>Pomodoro Timer</h3>
-                <p>Classic 25/5 minute work-break cycles. Customizable focus and break durations to match your flow.</p>
-            </div>
-            <div class="feature-card" id="feature-characters">
-                <div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/><path d="M8.5 8.5v.01"/><path d="M16 15.5c-2 1-4 1-6 0"/><path d="M12 12.5v.01"/></svg></div>
-                <h3>Cute Characters</h3>
-                <p>Choose between a cheerful tomato or an adorable cat. Your buddy reacts and animates as you work.</p>
-            </div>
-            <div class="feature-card" id="feature-widget">
-                <div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-                <h3>Desktop Widget</h3>
-                <p>A tiny, always-on-top companion that floats on your screen. Drag it anywhere you like.</p>
-            </div>
-            <div class="feature-card" id="feature-notifications">
-                <div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
-                <h3>Notifications</h3>
-                <p>Get notified when it's time to focus or take a break. Never miss a session transition.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta" id="cta">
-        <h2>Ready to focus?</h2>
-        <p>Download Pomodoro Buddy and let your new desktop companion keep you on track.</p>
-        <a href="https://github.com/joshdrobert/Pomodoro/releases/latest" class="btn btn-primary btn-lg" id="cta-download-btn">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download for macOS
-        </a>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer" id="footer">
-        <p>Made by <a href="https://www.linkedin.com/in/joshua-robert/" target="_blank" rel="noopener noreferrer" id="linkedin-link">Joshua Robert</a></p>
+    <footer>
+        &copy; 2026 Pomodoro Buddy. Optimized for Apple Silicon.
     </footer>
-
-    <script>
-        // Character toggle
-        const buddy = document.getElementById('buddy');
-        const fruitBtn = document.getElementById('fruit-btn');
-        const catBtn = document.getElementById('cat-btn');
-
-        function setCharacter(char) {
-            buddy.classList.remove('buddy-fruit', 'buddy-cat');
-            buddy.classList.add(char === 'cat' ? 'buddy-cat' : 'buddy-fruit');
-
-            fruitBtn.classList.toggle('active', char === 'fruit');
-            catBtn.classList.toggle('active', char === 'cat');
-        }
-
-        fruitBtn.addEventListener('click', () => setCharacter('fruit'));
-        catBtn.addEventListener('click', () => setCharacter('cat'));
-
-        // Floating particles
-        const particlesEl = document.getElementById('particles');
-        for (let i = 0; i < 30; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 20 + 's';
-            particle.style.animationDuration = (15 + Math.random() * 20) + 's';
-            particle.style.opacity = (0.15 + Math.random() * 0.25);
-            particle.style.width = particle.style.height = (3 + Math.random() * 5) + 'px';
-            particlesEl.appendChild(particle);
-        }
-    </script>
 </body>
 </html>
