@@ -15,12 +15,13 @@ body {
 }
 
 #buddy-container {
-    width: 250px;
-    height: 400px;
+    width: 250px; /* Fixed width as requested */
+    height: 420px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    padding-top: 40px;
     cursor: grab;
     -webkit-app-region: drag;
     position: relative;
@@ -31,16 +32,16 @@ body {
     position: absolute;
     top: 15px;
     right: 15px;
-    width: 26px;
-    height: 26px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     border: none;
-    background: rgba(255, 100, 100, 0.2);
-    color: rgba(255, 255, 255, 0.4);
+    background: rgba(45, 52, 54, 0.1);
+    color: #2d3436;
     font-size: 14px;
     font-weight: 800;
     cursor: pointer;
-    opacity: 1;
+    opacity: 0.6;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     -webkit-app-region: no-drag;
     display: flex;
@@ -50,9 +51,10 @@ body {
 }
 
 #buddy-container:hover #quit-btn {
-    background: rgba(255, 70, 70, 0.9);
+    background: #ff6b6b;
     color: #fff;
-    box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
+    opacity: 1;
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
 }
 
 #quit-btn:hover {
@@ -61,37 +63,42 @@ body {
 
 #buddy {
     position: relative;
-    width: 140px;
-    height: 140px;
-    background: var(--buddy-white);
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
+    /* NO default background here to prevent White Tomato bug */
     box-shadow: 0 10px 40px rgba(0,0,0,0.15);
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    flex-shrink: 0;
 }
+
+/* Character Isolation - Strict Hiding */
+#buddy.buddy-fruit .cat-parts { display: none !important; }
+#buddy.buddy-cat .fruit-parts { display: none !important; }
 
 /* ===== Shared Face ===== */
 .face {
     position: absolute;
-    top: 25px; /* Moved to top */
+    top: 28px;
     display: flex;
     flex-direction: column;
     align-items: center;
     animation: face-drift 8s ease-in-out infinite;
-    z-index: 5;
+    z-index: 10;
 }
 
 .eyes {
     display: flex;
-    gap: 22px;
+    gap: 24px;
 }
 
 .eye {
-    width: 9px;
-    height: 11px;
+    width: 10px;
+    height: 12px;
     background: #1a1a1a;
     border-radius: 50%;
     animation: blink 4s infinite;
@@ -101,8 +108,8 @@ body {
 .eye::after {
     content: '';
     position: absolute;
-    width: 3px;
-    height: 3px;
+    width: 3.5px;
+    height: 3.5px;
     background: #fff;
     border-radius: 50%;
     top: 2px;
@@ -115,33 +122,35 @@ body {
 }
 
 .mouth {
-    width: 14px;
-    height: 7px;
-    border-bottom: 2.5px solid #1a1a1a;
-    border-radius: 0 0 10px 10px;
-    margin: 6px auto;
+    width: 16px;
+    height: 8px;
+    border-bottom: 3px solid #1a1a1a;
+    border-radius: 0 0 12px 12px;
+    margin: 8px auto;
 }
 
 .nose { display: none; }
 
-/* ===== Timer - Positioned at bottom ===== */
+/* ===== Timer ===== */
 .timer-display {
     position: absolute;
-    bottom: 25px;
-    font-size: 28px;
+    bottom: 28px;
+    font-size: 30px;
     font-weight: 900;
     color: #fff;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    z-index: 5;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    z-index: 15;
     letter-spacing: -0.5px;
 }
 
-/* ===== Controls ===== */
+/* ===== Optimized Stacked Controls ===== */
 .controls {
-    margin-top: 35px;
+    margin-top: 30px;
     display: flex;
+    flex-direction: column; /* VERTICAL STACK FOR 250PX WINDOW */
     gap: 12px;
     opacity: 0;
+    width: 100%;
     transition: all 0.4s ease;
     -webkit-app-region: no-drag;
     align-items: center;
@@ -152,96 +161,92 @@ body {
     transform: translateY(-5px);
 }
 
+.button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
 button {
-    background: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.95);
     border: none;
-    padding: 7px 18px;
+    padding: 8px 16px;
     border-radius: 20px;
     cursor: pointer;
     font-weight: 700;
     color: var(--text-color);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    transition: all 0.2s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    font-size: 13px;
 }
 
 button:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     background: white;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
 }
 
 #char-btn {
-    font-size: 18px;
+    font-size: 20px;
     padding: 5px 12px;
 }
 
 .settings {
-    margin-top: 8px;
     display: flex;
-    gap: 6px;
+    gap: 8px;
+    justify-content: center;
+    background: rgba(255,255,255,0.6);
+    padding: 5px 12px;
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
 }
 
 .settings input {
-    width: 45px;
-    border: 1px solid rgba(0,0,0,0.1);
-    border-radius: 8px;
-    padding: 4px;
+    width: 48px;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 6px;
+    padding: 3px;
     text-align: center;
-    font-size: 13px;
-    font-weight: 600;
-    background: rgba(255,255,255,0.8);
+    font-size: 14px;
+    font-weight: 700;
 }
 
-/* ===== Redesigned Tomato ===== */
-.buddy-fruit {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-}
-
-.mode-focus .buddy-fruit {
+/* ===== Corrected Tomato ===== */
+#buddy.buddy-fruit {
     background: radial-gradient(circle at 35% 30%, #ff7675 0%, #d63031 60%, #ae2021 100%);
     box-shadow: 
-        0 15px 45px rgba(214, 48, 49, 0.4),
-        inset 0 -10px 20px rgba(0,0,0,0.15);
-}
-
-.mode-break .buddy-fruit {
-    background: radial-gradient(circle at 35% 30%, #fed330 0%, #f7b731 60%, #eb9c1a 100%);
-    box-shadow: 
-        0 15px 45px rgba(247, 183, 49, 0.3),
-        inset 0 -10px 20px rgba(0,0,0,0.1);
+        0 20px 50px rgba(214, 48, 49, 0.35),
+        inset 0 -12px 24px rgba(0,0,0,0.2);
 }
 
 .tomato-highlight {
     position: absolute;
     top: 20px;
-    left: 25px;
-    width: 35px;
-    height: 25px;
-    background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 80%);
+    left: 28px;
+    width: 45px;
+    height: 35px;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
     border-radius: 50%;
     transform: rotate(-25deg);
     z-index: 1;
 }
 
-/* 5-Pointed Star Calyx */
+/* Organic 5-Point Leaf (Calyx) */
 .calyx {
     position: absolute;
-    top: -12px;
+    top: -15px;
     left: 50%;
     transform: translateX(-50%);
-    width: 50px;
-    height: 50px;
-    z-index: 4;
+    width: 60px;
+    height: 60px;
+    z-index: 5;
 }
 
-/* Simple logic for a better 5-point look */
 .sepal {
     position: absolute;
-    width: 14px;
-    height: 20px;
-    background: #27ae60;
+    width: 18px;
+    height: 26px;
+    background: linear-gradient(180deg, #27ae60, #2ecc71);
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
     bottom: 50%;
     left: 50%;
@@ -256,111 +261,78 @@ button:hover {
 
 .stem {
     position: absolute;
-    top: -24px;
+    top: -28px;
     left: 50%;
     transform: translateX(-50%);
-    width: 6px;
-    height: 18px;
+    width: 8px;
+    height: 22px;
     background: #1e8449;
-    border-radius: 3px;
-    z-index: 5;
-    box-shadow: inset -1px 0 2px rgba(0,0,0,0.2);
-}
-
-.buddy-fruit .blush {
-    display: flex;
-    gap: 34px;
-    margin-top: 3px;
+    border-radius: 4px;
+    z-index: 6;
 }
 
 .buddy-fruit .blush::before,
 .buddy-fruit .blush::after {
     content: '';
-    width: 16px;
-    height: 9px;
-    background: rgba(255, 255, 255, 0.25);
+    width: 18px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 50%;
-    filter: blur(1px);
+    filter: blur(1.5px);
 }
 
-/* ===== Redesigned Cat ===== */
-.buddy-cat {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-}
-
-.mode-focus .buddy-cat {
+/* ===== Corrected Cat ===== */
+#buddy.buddy-cat {
     background: radial-gradient(circle at 50% 40%, #fff7d6 0%, #ffeaa7 60%, #f9ca24 100%);
     box-shadow: 
-        0 15px 45px rgba(249, 202, 36, 0.3),
-        inset 0 -10px 20px rgba(0,0,0,0.1);
+        0 20px 50px rgba(249, 202, 36, 0.3),
+        inset 0 -12px 24px rgba(0,0,0,0.1);
 }
 
-.mode-break .buddy-cat {
-    background: radial-gradient(circle at 50% 40%, #f5f6fa 0%, #dcdde1 60%, #b2bec3 100%);
-    box-shadow: 
-        0 15px 45px rgba(178, 190, 195, 0.2),
-        inset 0 -10px 20px rgba(0,0,0,0.1);
-}
-
-.buddy-cat .face {
-    top: 30px;
-}
+#buddy.buddy-cat .face { top: 38px; }
+#buddy.buddy-cat .timer-display { color: #574b10; }
 
 .cat-ear {
     position: absolute;
     width: 0;
     height: 0;
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    z-index: 2;
+    border-left: 24px solid transparent;
+    border-right: 24px solid transparent;
+    z-index: 5;
 }
 
 .left-ear {
-    top: -20px;
-    left: 10px;
-    border-bottom: 35px solid #f9ca24;
-    transform: rotate(-15deg);
+    top: -24px;
+    left: 8px;
+    border-bottom: 40px solid #f9ca24;
+    transform: rotate(-18deg);
 }
 
 .right-ear {
-    top: -20px;
-    right: 10px;
-    border-bottom: 35px solid #f9ca24;
-    transform: rotate(15deg);
+    top: -24px;
+    right: 8px;
+    border-bottom: 40px solid #f9ca24;
+    transform: rotate(18deg);
 }
 
+.mode-break .buddy-cat { background: radial-gradient(circle at 50% 40%, #f5f6fa 0%, #dcdde1 60%, #b2bec3 100%); }
 .mode-break .left-ear, .mode-break .right-ear { border-bottom-color: #b2bec3; }
-
-.left-ear::after, .right-ear::after {
-    content: '';
-    position: absolute;
-    top: 10px;
-    left: -12px;
-    width: 0;
-    height: 0;
-    border-left: 12px solid transparent;
-    border-right: 12px solid transparent;
-    border-bottom: 20px solid #ffb5bf;
-    opacity: 0.7;
-}
 
 .buddy-cat .nose {
     display: block;
-    width: 10px;
-    height: 7px;
+    width: 12px;
+    height: 8px;
     background: #ffb5bf;
-    margin: 4px auto 0;
+    margin: 5px auto 0;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
     border-radius: 0 0 3px 3px;
 }
 
 .buddy-cat .mouth {
-    width: 18px;
-    height: 6px;
+    width: 22px;
+    height: 7px;
     border-bottom: none;
-    margin: 1px auto;
+    margin: 2px auto;
     position: relative;
     opacity: 0.8;
 }
@@ -369,29 +341,26 @@ button:hover {
     content: '';
     position: absolute;
     bottom: 0;
-    width: 9px;
-    height: 6px;
-    border: 1.8px solid #1a1a1a;
+    width: 11px;
+    height: 7px;
+    border: 2px solid #1a1a1a;
     border-top: none;
 }
 
-.buddy-cat .mouth::before { left: 0; border-radius: 0 0 0 8px; border-right: none; }
-.buddy-cat .mouth::after { right: 0; border-radius: 0 0 8px 0; border-left: none; }
-
-.buddy-cat .timer-display { color: var(--text-color); }
-.mode-focus .buddy-cat .timer-display { color: #574b10; }
+.buddy-cat .mouth::before { left: 0; border-radius: 0 0 0 10px; border-right: none; }
+.buddy-cat .mouth::after { right: 0; border-radius: 0 0 10px 0; border-left: none; }
 
 .cat-tail {
     position: absolute;
-    bottom: 10px;
-    right: -28px;
-    width: 40px;
-    height: 40px;
-    border: 5px solid #f9ca24;
+    bottom: 12px;
+    right: -32px;
+    width: 45px;
+    height: 45px;
+    border: 6px solid #f9ca24;
     border-color: transparent #f9ca24 #f9ca24 transparent;
-    border-radius: 0 0 30px 0;
+    border-radius: 0 0 32px 0;
     animation: tail-wag 2s ease-in-out infinite;
-    z-index: 0;
+    z-index: -1;
 }
 
 .mode-break .cat-tail { border-color: transparent #b2bec3 #b2bec3 transparent; }
