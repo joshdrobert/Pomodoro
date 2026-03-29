@@ -14,25 +14,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: setup node
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+      - name: install Rust stable
+        uses: dtolnay/rust-toolchain@stable
 
-      - name: Build Electron app
-        run: npm run build
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: install dependencies
+        run: npm install
 
-      - name: Upload to GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            dist/Pomodoro-Buddy-*.dmg
-          generate_release_notes: true
+      - name: build tauri app
+        uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: 'Pomodoro Buddy ${{ github.ref_name }}'
+          releaseBody: 'Migrated to Tauri! Application size reduced from 275MB to ~10MB.'
+          releaseDraft: false
+          prerelease: false

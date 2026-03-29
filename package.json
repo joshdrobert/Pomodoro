@@ -1,19 +1,15 @@
 {
-  "name": "pomodoro",
+  "name": "pomodoro-buddy",
   "version": "1.2.3",
-  "description": "A cute Pomodoro buddy app for macOS.",
-  "main": "main.js",
+  "description": "A cute, ultra-lightweight Pomodoro buddy app for macOS.",
+  "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron .",
-    "build": "electron-builder"
+    "tauri": "tauri",
+    "dev": "tauri dev",
+    "build": "tauri build"
   },
-  "keywords": [],
-  "author": "Joshua Robert",
-  "license": "ISC",
-  "type": "commonjs",
   "devDependencies": {
-    "electron": "^41.0.3",
-    "electron-builder": "^26.8.1"
+    "@tauri-apps/api": "^2.1.0",
+    "@tauri-apps/cli": "^2.1.0"
   }
 }
