@@ -33,7 +33,6 @@ jobs:
         with:
           files: |
             dist/*.dmg
-            dist/*.zip
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
