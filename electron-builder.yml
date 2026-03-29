@@ -18,6 +18,8 @@ mac:
         - arm64
   icon: icon.png
 dmg:
+  artifactName: "Pomodoro-Buddy-${version}-${arch}.${ext}"
+  writeUpdateInfo: false
   contents:
     - x: 130
       y: 220
