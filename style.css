@@ -16,7 +16,7 @@ body {
 
 #buddy-container {
     width: 250px;
-    height: 340px;
+    height: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -26,85 +26,78 @@ body {
     position: relative;
 }
 
+/* Quit Button - More prominent X */
 #quit-btn {
     position: absolute;
-    top: 6px;
-    right: 6px;
-    width: 22px;
-    height: 22px;
+    top: 15px;
+    right: 15px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     border: none;
-    background: rgba(255, 100, 100, 0.7);
-    color: #fff;
-    font-size: 12px;
-    font-weight: 700;
+    background: rgba(255, 100, 100, 0.2);
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 14px;
+    font-weight: 800;
     cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s ease, transform 0.2s;
+    opacity: 1;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     -webkit-app-region: no-drag;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0;
-    line-height: 1;
+    z-index: 100;
 }
 
 #buddy-container:hover #quit-btn {
-    opacity: 1;
+    background: rgba(255, 70, 70, 0.9);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
 }
 
 #quit-btn:hover {
-    background: rgba(255, 70, 70, 1);
-    transform: scale(1.15);
+    transform: scale(1.1) rotate(90deg);
 }
 
 #buddy {
     position: relative;
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 140px;
     background: var(--buddy-white);
-    border-radius: 50% 50% 45% 45%;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    transition: all 0.5s ease;
+    border-radius: 50%;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-}
-
-.mode-focus #buddy {
-    background: #ffeaa7;
-    border: 4px solid var(--bg-focus);
-}
-
-.mode-break #buddy {
-    background: #e0fcfb;
-    border: 4px solid var(--bg-break);
+    justify-content: flex-start;
 }
 
 /* ===== Shared Face ===== */
 .face {
-    position: relative;
-    top: -10px;
+    position: absolute;
+    top: 25px; /* Moved to top */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     animation: face-drift 8s ease-in-out infinite;
     z-index: 5;
 }
 
 .eyes {
     display: flex;
-    gap: 20px;
+    gap: 22px;
 }
 
 .eye {
-    width: 8px;
-    height: 10px;
-    background: #2d3436;
+    width: 9px;
+    height: 11px;
+    background: #1a1a1a;
     border-radius: 50%;
     animation: blink 4s infinite;
     position: relative;
 }
 
-/* Cute eye highlights */
 .eye::after {
     content: '';
     position: absolute;
@@ -112,8 +105,8 @@ body {
     height: 3px;
     background: #fff;
     border-radius: 50%;
-    top: 1px;
-    right: 1px;
+    top: 2px;
+    right: 2px;
 }
 
 @keyframes blink {
@@ -122,543 +115,297 @@ body {
 }
 
 .mouth {
-    width: 12px;
-    height: 6px;
-    border-bottom: 2px solid #2d3436;
+    width: 14px;
+    height: 7px;
+    border-bottom: 2.5px solid #1a1a1a;
     border-radius: 0 0 10px 10px;
-    margin: 5px auto;
+    margin: 6px auto;
 }
 
-/* Nose — hidden for tomato, shown for cat */
-.nose {
-    display: none;
-}
+.nose { display: none; }
 
-/* ===== Timer ===== */
+/* ===== Timer - Positioned at bottom ===== */
 .timer-display {
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--text-color);
-    margin-top: 10px;
+    position: absolute;
+    bottom: 25px;
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
     z-index: 5;
+    letter-spacing: -0.5px;
 }
 
 /* ===== Controls ===== */
 .controls {
-    margin-top: 20px;
+    margin-top: 35px;
     display: flex;
-    gap: 10px;
+    gap: 12px;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: all 0.4s ease;
     -webkit-app-region: no-drag;
     align-items: center;
 }
 
 #buddy-container:hover .controls {
     opacity: 1;
+    transform: translateY(-5px);
 }
 
 button {
-    background: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.9);
     border: none;
-    padding: 5px 15px;
-    border-radius: 15px;
+    padding: 7px 18px;
+    border-radius: 20px;
     cursor: pointer;
-    font-weight: 600;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transition: transform 0.2s;
+    font-weight: 700;
+    color: var(--text-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: all 0.2s;
 }
 
 button:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
     background: white;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
 }
 
 #char-btn {
-    font-size: 16px;
-    padding: 4px 10px;
-    line-height: 1;
+    font-size: 18px;
+    padding: 5px 12px;
 }
 
 .settings {
-    margin-top: 5px;
+    margin-top: 8px;
     display: flex;
-    gap: 5px;
+    gap: 6px;
 }
 
 .settings input {
-    width: 40px;
-    border: none;
-    border-radius: 5px;
-    padding: 2px;
+    width: 45px;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 4px;
     text-align: center;
-    font-size: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    background: rgba(255,255,255,0.8);
 }
 
-/* ===== Animations ===== */
-.idle {
-    animation: breathe 4s ease-in-out infinite, wobble 10s ease-in-out infinite;
-}
-
-@keyframes breathe {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.03); }
-}
-
-@keyframes wobble {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(2deg); }
-    75% { transform: rotate(-2deg); }
-}
-
-.active {
-    animation: active-breathe 2s ease-in-out infinite, tiny-bounce 0.8s ease-in-out infinite;
-}
-
-@keyframes active-breathe {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-}
-
-@keyframes tiny-bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-}
-
-@keyframes face-drift {
-    0%, 100% { transform: translate(0, 0); }
-    50% { transform: translate(2px, 1px); }
-}
-
-
-/* =============================================
-   TOMATO / FRUIT CHARACTER
-   ============================================= */
-.fruit-parts {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-
-.buddy-fruit .fruit-parts {
-    display: block;
-}
-
-.buddy-cat .fruit-parts {
-    display: none;
-}
-
-/* Tomato body shape — slightly squashed, wider than tall */
+/* ===== Redesigned Tomato ===== */
 .buddy-fruit {
-    border-radius: 48% 48% 46% 46% / 42% 42% 54% 54%;
-    width: 126px;
-    height: 112px;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
 }
 
-/* Tomato body colour — 3D gradient shading */
 .mode-focus .buddy-fruit {
-    background: radial-gradient(circle at 35% 30%, #ff8e8e 0%, #ff6b6b 40%, #e74c3c 80%, #c0392b 100%);
-    border-color: #c0392b;
-    box-shadow:
-        0 10px 30px rgba(231,76,60,0.3),
-        inset 0 -8px 16px rgba(0,0,0,0.1),
-        inset 0 4px 10px rgba(255,255,255,0.15);
+    background: radial-gradient(circle at 35% 30%, #ff7675 0%, #d63031 60%, #ae2021 100%);
+    box-shadow: 
+        0 15px 45px rgba(214, 48, 49, 0.4),
+        inset 0 -10px 20px rgba(0,0,0,0.15);
 }
 
 .mode-break .buddy-fruit {
-    background: radial-gradient(circle at 35% 30%, #fff3cd 0%, #ffeaa7 40%, #f9ca24 80%, #e1b12c 100%);
-    border-color: #f39c12;
-    box-shadow:
-        0 10px 30px rgba(243,156,18,0.2),
-        inset 0 -8px 16px rgba(0,0,0,0.06),
-        inset 0 4px 10px rgba(255,255,255,0.2);
+    background: radial-gradient(circle at 35% 30%, #fed330 0%, #f7b731 60%, #eb9c1a 100%);
+    box-shadow: 
+        0 15px 45px rgba(247, 183, 49, 0.3),
+        inset 0 -10px 20px rgba(0,0,0,0.1);
 }
 
-/* Tomato highlight / light reflection */
 .tomato-highlight {
     position: absolute;
-    top: 12px;
-    left: 18px;
-    width: 22px;
-    height: 16px;
-    background: rgba(255, 255, 255, 0.35);
+    top: 20px;
+    left: 25px;
+    width: 35px;
+    height: 25px;
+    background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 80%);
     border-radius: 50%;
-    transform: rotate(-30deg);
+    transform: rotate(-25deg);
     z-index: 1;
-    filter: blur(2px);
 }
 
-/* ===== Tomato Calyx (Star-shaped green sepals) ===== */
+/* 5-Pointed Star Calyx */
 .calyx {
     position: absolute;
-    top: -6px;
+    top: -12px;
     left: 50%;
     transform: translateX(-50%);
-    width: 40px;
-    height: 18px;
+    width: 50px;
+    height: 50px;
     z-index: 4;
 }
 
+/* Simple logic for a better 5-point look */
 .sepal {
     position: absolute;
-    width: 12px;
-    height: 16px;
-    background: linear-gradient(180deg, #27ae60 0%, #2ecc71 100%);
-    border-radius: 2px 2px 50% 50%;
-    bottom: 0;
+    width: 14px;
+    height: 20px;
+    background: #27ae60;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    bottom: 50%;
     left: 50%;
-    transform-origin: bottom center;
+    transform-origin: 50% 100%;
 }
 
-.sepal:nth-child(1) {
-    transform: translateX(-50%) rotate(0deg);
-}
+.sepal:nth-child(1) { transform: translateX(-50%) rotate(0deg); }
+.sepal:nth-child(2) { transform: translateX(-50%) rotate(72deg); }
+.sepal:nth-child(3) { transform: translateX(-50%) rotate(144deg); }
+.sepal:nth-child(4) { transform: translateX(-50%) rotate(216deg); }
+.sepal:nth-child(5) { transform: translateX(-50%) rotate(288deg); }
 
-.sepal:nth-child(2) {
-    transform: translateX(-50%) rotate(72deg);
-}
-
-.sepal:nth-child(3) {
-    transform: translateX(-50%) rotate(144deg);
-}
-
-.sepal:nth-child(4) {
-    transform: translateX(-50%) rotate(-72deg);
-}
-
-.sepal:nth-child(5) {
-    transform: translateX(-50%) rotate(-144deg);
-}
-
-/* Tomato stem */
 .stem {
     position: absolute;
-    top: -16px;
+    top: -24px;
     left: 50%;
     transform: translateX(-50%);
-    width: 5px;
-    height: 12px;
-    background: linear-gradient(180deg, #1e8449, #27ae60);
-    border-radius: 2px 2px 1px 1px;
+    width: 6px;
+    height: 18px;
+    background: #1e8449;
+    border-radius: 3px;
     z-index: 5;
+    box-shadow: inset -1px 0 2px rgba(0,0,0,0.2);
 }
 
-/* Tomato blush — cute pink cheeks */
 .buddy-fruit .blush {
     display: flex;
-    gap: 30px;
-    margin-top: 2px;
+    gap: 34px;
+    margin-top: 3px;
 }
 
 .buddy-fruit .blush::before,
 .buddy-fruit .blush::after {
     content: '';
-    width: 14px;
-    height: 8px;
-    background: rgba(255, 200, 200, 0.5);
+    width: 16px;
+    height: 9px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    filter: blur(1px);
+}
+
+/* ===== Redesigned Cat ===== */
+.buddy-cat {
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
 }
 
-.buddy-fruit .blush::before { margin-right: 0; }
-.buddy-fruit .blush::after { margin-left: 0; }
-
-/* Tomato nose hidden */
-.buddy-fruit .nose {
-    display: none;
-}
-
-.buddy-fruit .timer-display {
-    color: #fff;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
-}
-
-.mode-break .buddy-fruit .timer-display {
-    color: var(--text-color);
-    text-shadow: none;
-}
-
-
-/* =============================================
-   CAT CHARACTER
-   ============================================= */
-.cat-parts {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-
-.buddy-fruit .cat-parts {
-    display: none;
-}
-
-.buddy-cat .cat-parts {
-    display: block;
-}
-
-/* Cat body — rounder, slightly taller */
-.buddy-cat {
-    border-radius: 48% 48% 44% 44%;
-    width: 118px;
-    height: 122px;
-}
-
-/* Cat body colours with fur-like gradient */
 .mode-focus .buddy-cat {
-    background: radial-gradient(circle at 50% 40%, #fff0c0 0%, #ffeaa7 40%, #f8cf5f 90%);
-    border-color: #f8b739;
-    box-shadow:
-        0 10px 30px rgba(248,183,57,0.2),
-        inset 0 -6px 12px rgba(0,0,0,0.05),
-        inset 0 3px 8px rgba(255,255,255,0.2);
+    background: radial-gradient(circle at 50% 40%, #fff7d6 0%, #ffeaa7 60%, #f9ca24 100%);
+    box-shadow: 
+        0 15px 45px rgba(249, 202, 36, 0.3),
+        inset 0 -10px 20px rgba(0,0,0,0.1);
 }
 
 .mode-break .buddy-cat {
-    background: radial-gradient(circle at 50% 40%, #f0f3f5 0%, #dfe6e9 40%, #b2bec3 100%);
-    border-color: #b2bec3;
-    box-shadow:
-        0 10px 30px rgba(178,190,195,0.2),
-        inset 0 -6px 12px rgba(0,0,0,0.04),
-        inset 0 3px 8px rgba(255,255,255,0.3);
+    background: radial-gradient(circle at 50% 40%, #f5f6fa 0%, #dcdde1 60%, #b2bec3 100%);
+    box-shadow: 
+        0 15px 45px rgba(178, 190, 195, 0.2),
+        inset 0 -10px 20px rgba(0,0,0,0.1);
 }
 
-/* Cat stripe markings on forehead */
-.buddy-cat::before {
-    content: '';
-    position: absolute;
-    top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 20px;
-    height: 12px;
-    z-index: 1;
-    background:
-        linear-gradient(180deg, transparent 0%, transparent 30%, rgba(200,160,50,0.3) 30%, rgba(200,160,50,0.3) 38%, transparent 38%, transparent 58%, rgba(200,160,50,0.3) 58%, rgba(200,160,50,0.3) 66%, transparent 66%, transparent 86%, rgba(200,160,50,0.3) 86%, rgba(200,160,50,0.3) 94%, transparent 94%);
-    border-radius: 2px;
+.buddy-cat .face {
+    top: 30px;
 }
 
-.mode-break .buddy-cat::before {
-    background:
-        linear-gradient(180deg, transparent 0%, transparent 30%, rgba(150,150,150,0.2) 30%, rgba(150,150,150,0.2) 38%, transparent 38%, transparent 58%, rgba(150,150,150,0.2) 58%, rgba(150,150,150,0.2) 66%, transparent 66%, transparent 86%, rgba(150,150,150,0.2) 86%, rgba(150,150,150,0.2) 94%, transparent 94%);
-}
-
-/* Cat ears — more realistic pointed shape */
 .cat-ear {
     position: absolute;
     width: 0;
     height: 0;
-    border-left: 16px solid transparent;
-    border-right: 16px solid transparent;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
     z-index: 2;
 }
 
 .left-ear {
-    top: -18px;
-    left: 8px;
-    border-bottom: 26px solid #f8b739;
+    top: -20px;
+    left: 10px;
+    border-bottom: 35px solid #f9ca24;
+    transform: rotate(-15deg);
 }
 
 .right-ear {
-    top: -18px;
-    right: 8px;
-    border-bottom: 26px solid #f8b739;
+    top: -20px;
+    right: 10px;
+    border-bottom: 35px solid #f9ca24;
+    transform: rotate(15deg);
 }
 
-.mode-break .left-ear {
-    border-bottom-color: #b2bec3;
-}
+.mode-break .left-ear, .mode-break .right-ear { border-bottom-color: #b2bec3; }
 
-.mode-break .right-ear {
-    border-bottom-color: #b2bec3;
-}
-
-/* Inner ear — pink */
-.left-ear::after,
-.right-ear::after {
+.left-ear::after, .right-ear::after {
     content: '';
     position: absolute;
-    top: 8px;
+    top: 10px;
+    left: -12px;
     width: 0;
     height: 0;
-    border-left: 9px solid transparent;
-    border-right: 9px solid transparent;
-    border-bottom: 16px solid #ffb5bf;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 20px solid #ffb5bf;
+    opacity: 0.7;
 }
 
-.left-ear::after { left: -9px; }
-.right-ear::after { left: -9px; }
-
-/* Cat nose — small pink triangle */
 .buddy-cat .nose {
     display: block;
-    width: 8px;
-    height: 6px;
+    width: 10px;
+    height: 7px;
     background: #ffb5bf;
-    margin: 3px auto 0;
+    margin: 4px auto 0;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-    border-radius: 0 0 2px 2px;
+    border-radius: 0 0 3px 3px;
 }
 
-/* Cat mouth override — "ω" cat smile */
 .buddy-cat .mouth {
-    width: 14px;
-    height: 5px;
+    width: 18px;
+    height: 6px;
     border-bottom: none;
-    border-radius: 0;
-    margin: 0px auto;
+    margin: 1px auto;
     position: relative;
+    opacity: 0.8;
 }
 
-.buddy-cat .mouth::before,
-.buddy-cat .mouth::after {
+.buddy-cat .mouth::before, .buddy-cat .mouth::after {
     content: '';
     position: absolute;
     bottom: 0;
-    width: 7px;
-    height: 5px;
-    border: 1.5px solid #2d3436;
+    width: 9px;
+    height: 6px;
+    border: 1.8px solid #1a1a1a;
     border-top: none;
 }
 
-.buddy-cat .mouth::before {
-    left: 0;
-    border-radius: 0 0 0 6px;
-    border-right: none;
-}
+.buddy-cat .mouth::before { left: 0; border-radius: 0 0 0 8px; border-right: none; }
+.buddy-cat .mouth::after { right: 0; border-radius: 0 0 8px 0; border-left: none; }
 
-.buddy-cat .mouth::after {
-    right: 0;
-    border-radius: 0 0 6px 0;
-    border-left: none;
-}
+.buddy-cat .timer-display { color: var(--text-color); }
+.mode-focus .buddy-cat .timer-display { color: #574b10; }
 
-/* Cat whiskers */
-.whiskers {
-    position: absolute;
-    width: 100%;
-    top: 55%;
-    z-index: 6;
-}
-
-.whisker-set {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.left-whiskers {
-    left: -24px;
-    align-items: flex-end;
-}
-
-.right-whiskers {
-    right: -24px;
-    align-items: flex-start;
-}
-
-.whisker {
-    width: 24px;
-    height: 1.5px;
-    background: linear-gradient(90deg, #aaa, #636e72);
-    border-radius: 1px;
-}
-
-.right-whiskers .whisker {
-    background: linear-gradient(90deg, #636e72, #aaa);
-}
-
-.left-whiskers .whisker:first-child { transform: rotate(-12deg); }
-.left-whiskers .whisker:last-child  { transform: rotate(12deg); }
-.right-whiskers .whisker:first-child { transform: rotate(12deg); }
-.right-whiskers .whisker:last-child  { transform: rotate(-12deg); }
-
-/* Cat tail — curled */
 .cat-tail {
     position: absolute;
-    bottom: 5px;
-    right: -22px;
-    width: 32px;
-    height: 32px;
-    border: 4px solid #f8b739;
-    border-color: transparent #f8b739 #f8b739 transparent;
-    border-radius: 0 0 22px 0;
+    bottom: 10px;
+    right: -28px;
+    width: 40px;
+    height: 40px;
+    border: 5px solid #f9ca24;
+    border-color: transparent #f9ca24 #f9ca24 transparent;
+    border-radius: 0 0 30px 0;
     animation: tail-wag 2s ease-in-out infinite;
     z-index: 0;
 }
 
-.mode-break .cat-tail {
-    border-color: transparent #b2bec3 #b2bec3 transparent;
-}
+.mode-break .cat-tail { border-color: transparent #b2bec3 #b2bec3 transparent; }
 
 @keyframes tail-wag {
     0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(15deg); }
+    50% { transform: rotate(20deg); }
 }
 
-/* Cat paws */
-.cat-paws {
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 30px;
-    z-index: 3;
-}
-
-.paw {
-    width: 18px;
-    height: 10px;
-    background: #f8cf5f;
-    border-radius: 50% 50% 40% 40%;
-    border: 2px solid #f8b739;
-    border-top: none;
-    position: relative;
-}
-
-.mode-break .paw {
-    background: #cfd9db;
-    border-color: #b2bec3;
-}
-
-/* Paw pads */
-.paw::before {
-    content: '';
-    position: absolute;
-    bottom: 1px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 8px;
-    height: 4px;
-    background: #ffb5bf;
-    border-radius: 50%;
-}
-
-/* Cat blush */
-.buddy-cat .blush {
-    display: flex;
-    gap: 30px;
-    margin-top: 2px;
-}
-
-.buddy-cat .blush::before,
-.buddy-cat .blush::after {
-    content: '';
-    width: 13px;
-    height: 8px;
-    background: rgba(255, 150, 180, 0.45);
-    border-radius: 50%;
-}
-
-/* Cat eyes — slightly bigger, cuter */
-.buddy-cat .eye {
-    width: 9px;
-    height: 12px;
-    border-radius: 50% 50% 45% 45%;
-}
+/* Animations */
+.idle { animation: breathe 4s ease-in-out infinite, wobble 10s ease-in-out infinite; }
+@keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+@keyframes wobble { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(1.5deg); } 75% { transform: rotate(-1.5deg); } }
+.active { animation: active-breathe 1.5s ease-in-out infinite, tiny-bounce 0.8s ease-in-out infinite; }
+@keyframes active-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+@keyframes tiny-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes face-drift { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(3px, 1.5px); } }

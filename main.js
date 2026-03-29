@@ -33,7 +33,7 @@ function createWindow() {
 
   mainWindow = new BrowserWindow({
     width: 250,
-    height: 360,
+    height: 420,
     x: screenWidth - 270,
     y: 50,
     frame: false,
