@@ -1,7 +1,7 @@
 use tauri::{
     menu::{Menu, MenuItem},
     tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
-    Manager, Runtime,
+    Manager, Runtime, AppHandle, WebviewWindow,
 };
 
 #[tauri::command]
@@ -27,22 +27,25 @@ pub fn run() {
                 .icon(app.default_window_icon().unwrap().clone())
                 .menu(&menu)
                 .show_menu_on_left_click(false)
-                .on_menu_event(|handle, event| match event.id.as_ref() {
-                    "quit" => {
-                        handle.exit(0);
-                    }
-                    "show_hide" => {
-                        if let Some(window) = handle.get_webview_window("main") {
-                            let visible = window.is_visible().unwrap_or(true);
-                            if visible {
-                                let _ = window.hide();
-                            } else {
-                                let _ = window.show();
-                                let _ = window.set_focus();
+                .on_menu_event(|handle: &AppHandle, event| {
+                    match event.id.as_ref() {
+                        "quit" => {
+                            handle.exit(0);
+                        }
+                        "show_hide" => {
+                            if let Some(window) = handle.get_webview_window("main") {
+                                let win: WebviewWindow = window;
+                                let visible = win.is_visible().unwrap_or(true);
+                                if visible {
+                                    let _ = win.hide();
+                                } else {
+                                    let _ = win.show();
+                                    let _ = win.set_focus();
+                                }
                             }
                         }
+                        _ => {}
                     }
-                    _ => {}
                 })
                 .on_tray_icon_event(|tray, event| {
                     if let TrayIconEvent::Click {
@@ -53,8 +56,9 @@ pub fn run() {
                     {
                         let app = tray.app_handle();
                         if let Some(window) = app.get_webview_window("main") {
-                            let _ = window.show();
-                            let _ = window.set_focus();
+                            let win: WebviewWindow = window;
+                            let _ = win.show();
+                            let _ = win.set_focus();
                         }
                     }
                 })
