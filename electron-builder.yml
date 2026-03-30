@@ -1,5 +1,6 @@
 appId: com.pomodoro.buddy
 productName: Pomodoro Buddy
+artifactName: "Pomodoro-Buddy-${version}-${os}.${ext}"
 directories:
   output: dist
 compression: maximum
@@ -22,7 +23,6 @@ mac:
         - x64
   icon: icon.png
 dmg:
-  artifactName: "Pomodoro-Buddy-${version}-mac.${ext}"
   writeUpdateInfo: false
   contents:
     - x: 130
@@ -37,6 +37,6 @@ win:
     - target: portable
   icon: icon.png
 nsis:
-  artifactName: "Pomodoro-Buddy-Setup-${version}.${ext}"
+  artifactName: "Pomodoro-Buddy-Setup-${version}-${os}.${ext}"
   oneClick: false
   allowToChangeInstallationDirectory: true

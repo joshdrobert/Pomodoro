@@ -28,16 +28,33 @@ jobs:
 
       - name: Build Electron app
         run: npm run build
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            dist/*.dmg
-            dist/*.zip
-            dist/*.exe
-          generate_release_notes: true
+            dist/Pomodoro-Buddy-*.dmg
+            dist/Pomodoro-Buddy-*.zip
+            dist/Pomodoro-Buddy-*.exe
+          body: |
+            ## 🚀 Latest Version
+            
+            Enjoy your Pomodoro Buddy on both macOS and Windows!
+            
+            ### 💻 Windows
+            - **`Pomodoro-Buddy-Setup-[version]-win.exe`**: Standard Windows installer.
+            - **`Pomodoro-Buddy-[version]-win.exe`**: Portable version (no installation required).
+            
+            ### 🍎 macOS
+            - **`Pomodoro-Buddy-[version]-mac.dmg`**: Mac installer. Drag the app into your Applications folder.
+            - **`Pomodoro-Buddy-[version]-mac.zip`**: Standard zipped app.
+            
+            *Note for Mac Users:* This release is an `x64` build that prevents the macOS Gatekeeper "damaged app" error affecting unsigned Apple Silicon apps. It works perfectly on Apple Silicon via Rosetta 2. If macOS says the app is from an *unidentified developer*, simply **Right-Click -> Open** the app format.
+            
+            ---
+            **Changelog:**
+            - Cleaned up default release assets by removing duplicate/unnecessary blockmap files.
+            - Standardized executable names for a clean downloading experience.
+            - Updated release note guides.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
