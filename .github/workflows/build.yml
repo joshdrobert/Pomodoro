@@ -1,4 +1,4 @@
-name: Build & Release macOS App
+name: Build & Release App
 
 on:
   push:
@@ -9,8 +9,11 @@ permissions:
   contents: write
 
 jobs:
-  build-mac:
-    runs-on: macos-latest
+  build:
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
 
@@ -32,7 +35,9 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            dist/Pomodoro-Buddy-*.dmg
+            dist/*.dmg
+            dist/*.zip
+            dist/*.exe
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
