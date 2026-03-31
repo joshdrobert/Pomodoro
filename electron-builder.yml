@@ -10,6 +10,8 @@ files:
   - main.js
   - renderer.js
   - icon.png
+  - trayTemplate.png
+  - trayTemplate@2x.png
   - package.json
 mac:
   category: public.app-category.productivity

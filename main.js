@@ -5,7 +5,7 @@ let mainWindow;
 let tray;
 
 function createTray() {
-  const iconPath = path.join(__dirname, 'icon.png');
+  const iconPath = path.join(__dirname, 'trayTemplate.png');
   tray = new Tray(iconPath);
 
   const contextMenu = Menu.buildFromTemplate([
